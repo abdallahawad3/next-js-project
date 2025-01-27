@@ -8,6 +8,7 @@ async function main() {
     data: Array.from({ length: 20 }, () => ({
       title: faker.lorem.words({ min: 5, max: 20 }),
       body: faker.lorem.words({ min: 10, max: 30 }),
+      user_id: "",
     })),
   });
 }
