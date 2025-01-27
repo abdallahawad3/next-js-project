@@ -1,3 +1,4 @@
+"use server";
 import { getTodosAction } from "@/actions/todo.actions";
 import AddTodoDialog from "@/components/Dialog";
 import TodoTable from "@/components/TodoTable";
