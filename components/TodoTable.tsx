@@ -41,7 +41,7 @@ const TodoTable = ({ todos }: IProps) => {
             </TableCell>
             <TableCell>{todo.createdAt?.toDateString()}</TableCell>
             <TableCell className="flex items-center gap-5">
-              <TodosActions id={todo.id} />
+              <TodosActions todo={todo} />
             </TableCell>
           </TableRow>
         ))}
