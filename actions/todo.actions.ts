@@ -10,6 +10,7 @@ export const getTodosAction = async ({ id }: { id: string | null }) => {
     where: {
       user_id: id as string,
     },
+    take: 10,
   });
   return todos;
 };

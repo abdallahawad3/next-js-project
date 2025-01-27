@@ -6,8 +6,20 @@ import { auth } from "@clerk/nextjs/server";
 
 export default async function Home() {
   const { userId } = await auth();
-  const todos = await getTodosAction({ id: userId });
+  let todos: {
+    id: string;
+    title: string;
+    body: string | null;
+    completed: boolean | null;
+    user_id: string;
+    createdAt: Date | null;
+  }[] = [];
 
+  try {
+    todos = await getTodosAction({ id: userId });
+  } catch (error) {
+    console.error("Error fetching todos:", error);
+  }
   return (
     <section className="container mt-16">
       <div className="flex justify-end w-full mb-2">
