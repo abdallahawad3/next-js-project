@@ -36,8 +36,8 @@ const EditTodoForm = ({ todo }: { todo: ITodo }) => {
     resolver: zodResolver(ADD_TODO_SCHEMA),
     defaultValues: {
       title: todo.title,
-      body: todo.body,
-      completed: todo.completed,
+      body: todo.body as string,
+      completed: todo.completed as boolean,
     },
   });
 

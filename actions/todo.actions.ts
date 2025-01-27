@@ -19,7 +19,12 @@ export const createTodoAction = async (data: {
   completed?: boolean;
 }) => {
   await prisma.todo.create({
-    data,
+    data: {
+      title: data.title,
+      body: data.body,
+      completed: data.completed,
+      user_id: "",
+    },
   });
 
   revalidatePath("/");

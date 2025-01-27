@@ -28,23 +28,24 @@ const TodoTable = ({ todos }: IProps) => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {todos.map((todo) => (
-          <TableRow key={todo.id}>
-            <TableCell className="font-medium">{todo.id}</TableCell>
-            <TableCell>{todo.title.slice(0, 10)}</TableCell>
-            <TableCell>
-              {todo.completed ? (
-                <Badge variant={"default"}>completed</Badge>
-              ) : (
-                <Badge variant={"secondary"}>uncompleted</Badge>
-              )}
-            </TableCell>
-            <TableCell>{todo.createdAt?.toDateString()}</TableCell>
-            <TableCell className="flex items-center gap-5">
-              <TodosActions todo={todo} />
-            </TableCell>
-          </TableRow>
-        ))}
+        {todos.length > 0 &&
+          todos.map((todo) => (
+            <TableRow key={todo.id}>
+              <TableCell className="font-medium">{todo.id}</TableCell>
+              <TableCell>{todo.title.slice(0, 10)}</TableCell>
+              <TableCell>
+                {todo.completed ? (
+                  <Badge variant={"default"}>completed</Badge>
+                ) : (
+                  <Badge variant={"secondary"}>uncompleted</Badge>
+                )}
+              </TableCell>
+              <TableCell>{todo.createdAt?.toDateString()}</TableCell>
+              <TableCell className="flex items-center gap-5">
+                <TodosActions todo={todo} />
+              </TableCell>
+            </TableRow>
+          ))}
       </TableBody>
       <TableFooter>
         <TableRow>
