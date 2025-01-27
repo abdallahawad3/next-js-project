@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Table,
   TableBody,
@@ -9,10 +7,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from "./ui/button";
-import { Pen, Trash } from "lucide-react";
 import { Badge } from "./ui/badge";
 import type { ITodo } from "@/interface";
+import TodosActions from "./TodosActions";
 
 interface IProps {
   todos: ITodo[];
@@ -44,12 +41,7 @@ const TodoTable = ({ todos }: IProps) => {
             </TableCell>
             <TableCell>{todo.createdAt?.toDateString()}</TableCell>
             <TableCell className="flex items-center gap-5">
-              <Button size={"icon"} variant={"outline"}>
-                <Pen size={16} />
-              </Button>
-              <Button size={"icon"} variant={"destructive"}>
-                <Trash size={16} />
-              </Button>
+              <TodosActions id={todo.id} />
             </TableCell>
           </TableRow>
         ))}
