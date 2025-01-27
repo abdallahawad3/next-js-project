@@ -10,7 +10,7 @@ export default async function Home() {
       <div className="flex justify-end w-full">
         <AddTodoDialog />
       </div>
-      <TodoTable todos={todos.reverse()} />
+      <TodoTable todos={todos} />
     </section>
   );
 }

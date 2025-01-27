@@ -24,9 +24,13 @@ import { ADD_TODO_SCHEMA } from "@/validation";
 import { Checkbox } from "./ui/checkbox";
 import { createTodoAction } from "@/actions/todo.actions";
 import { Plus } from "lucide-react";
+import { useState } from "react";
+import Spinner from "./Spinner";
 
 const AddTodoDialog = () => {
   // Use Form
+  const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
   const form = useForm<z.infer<typeof ADD_TODO_SCHEMA>>({
     resolver: zodResolver(ADD_TODO_SCHEMA),
     defaultValues: {
@@ -36,11 +40,19 @@ const AddTodoDialog = () => {
   });
 
   async function onSubmit(data: z.infer<typeof ADD_TODO_SCHEMA>) {
+    setLoading(true);
     await createTodoAction(data);
+    form.reset({
+      title: "",
+      completed: false,
+      body: "",
+    });
+    setLoading(false);
+    setOpen(false);
   }
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
           <Plus size={16} />
@@ -100,8 +112,11 @@ const AddTodoDialog = () => {
               <FormLabel htmlFor="completed">Completed</FormLabel>
             </div>
 
-            <Button className="ml-auto block" type="submit">
-              Add Nwe Todo
+            <Button
+              className={`ml-auto block ${loading ? "cursor-not-allowed" : ""}`}
+              type="submit"
+              disabled={loading}>
+              <span className="flex items-center gap-1">{loading && <Spinner />} Add Nwe Todo</span>
             </Button>
           </form>
         </Form>
