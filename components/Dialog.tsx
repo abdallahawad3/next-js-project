@@ -23,6 +23,7 @@ import { Textarea } from "./ui/textarea";
 import { ADD_TODO_SCHEMA } from "@/validation";
 import { Checkbox } from "./ui/checkbox";
 import { createTodoAction } from "@/actions/todo.actions";
+import { Plus } from "lucide-react";
 
 const AddTodoDialog = () => {
   // Use Form
@@ -41,7 +42,10 @@ const AddTodoDialog = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Open</Button>
+        <Button>
+          <Plus size={16} />
+          Add New Todo
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
