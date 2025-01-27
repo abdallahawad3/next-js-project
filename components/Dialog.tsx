@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -15,31 +14,30 @@ import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "./ui/textarea";
-const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-});
+import { ADD_TODO_SCHEMA } from "@/validation";
+import { Checkbox } from "./ui/checkbox";
+import { createTodoAction } from "@/actions/todo.actions";
+
 const AddTodoDialog = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  // Use Form
+  const form = useForm<z.infer<typeof ADD_TODO_SCHEMA>>({
+    resolver: zodResolver(ADD_TODO_SCHEMA),
     defaultValues: {
-      username: "",
+      title: "",
+      body: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  async function onSubmit(data: z.infer<typeof ADD_TODO_SCHEMA>) {
+    await createTodoAction(data);
   }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -53,14 +51,13 @@ const AddTodoDialog = () => {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
               control={form.control}
-              name="username"
+              name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel>Title</FormLabel>
                   <FormControl>
-                    <Input placeholder="shadcn" {...field} />
+                    <Input placeholder="Title" {...field} />
                   </FormControl>
-                  <FormDescription>This is your public display name.</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -68,29 +65,42 @@ const AddTodoDialog = () => {
 
             <FormField
               control={form.control}
-              name="username"
+              name="body"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Bio</FormLabel>
+                  <FormLabel>Body</FormLabel>
                   <FormControl>
-                    <Textarea
-                      placeholder="Tell us a little bit about yourself"
-                      className="resize-none"
-                      {...field}
-                    />
+                    <Textarea className="resize-none" {...field} />
                   </FormControl>
-                  <FormDescription>
-                    You can <span>@mention</span> other users and organizations.
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
+            <div className="flex items-center space-x-2">
+              <FormField
+                control={form.control}
+                name="completed"
+                render={({ field }) => (
+                  <FormItem className="">
+                    <FormControl>
+                      <Checkbox
+                        id="completed"
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormLabel htmlFor="completed">Completed</FormLabel>
+            </div>
+
+            <Button className="ml-auto block" type="submit">
+              Add Nwe Todo
+            </Button>
           </form>
         </Form>
-        <DialogFooter>
-          <Button type="submit">Save changes</Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
