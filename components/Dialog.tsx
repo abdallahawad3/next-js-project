@@ -27,7 +27,7 @@ import { Plus } from "lucide-react";
 import { useState } from "react";
 import Spinner from "./Spinner";
 
-const AddTodoDialog = () => {
+const AddTodoDialog = ({ userId }: { userId: string }) => {
   // Use Form
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
@@ -41,7 +41,12 @@ const AddTodoDialog = () => {
 
   async function onSubmit(data: z.infer<typeof ADD_TODO_SCHEMA>) {
     setLoading(true);
-    await createTodoAction(data);
+    await createTodoAction({
+      title: data.title,
+      body: data.body,
+      completed: data.completed,
+      userId,
+    });
     form.reset({
       title: "",
       completed: false,

@@ -32,7 +32,7 @@ const TodoTable = ({ todos }: IProps) => {
           todos.map((todo) => (
             <TableRow key={todo.id}>
               <TableCell className="font-medium">{todo.id}</TableCell>
-              <TableCell>{todo.title.slice(0, 10)}</TableCell>
+              <TableCell>{todo.title}</TableCell>
               <TableCell>
                 {todo.completed ? (
                   <Badge variant={"default"}>completed</Badge>

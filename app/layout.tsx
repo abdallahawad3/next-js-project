@@ -35,7 +35,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange>
             <Header />
-            {children}
+            <div className="container flex justify-center">{children}</div>
           </ThemeProvider>
         </body>
       </html>

@@ -3,7 +3,7 @@ import { ModeToggle } from "./ThemeChanger";
 
 const Header = () => {
   return (
-    <div className="container flex items-center justify-between bg-gray-900 gap-1 py-4">
+    <div className="container flex items-center justify-between bg-slate-300 dark:bg-gray-900 dark:text-white gap-1 mb-10 py-4">
       <ModeToggle />
       <SignedOut>
         <SignInButton />
