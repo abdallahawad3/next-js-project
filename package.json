@@ -1,7 +1,7 @@
 {
   "name": "todo-next-js",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "prisma generate && next build",
